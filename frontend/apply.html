@@ -1,0 +1,316 @@
+<!-- apply.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Bus Pass</title>
+    <style>
+        .container {
+            width: 100%;
+            height: 100%;
+            --color: rgba(114, 114, 114, 0.3);
+            background-color: #191a1a;
+            background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent),
+                linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent);
+            background-size: 55px 55px;
+        }
+        .container1 {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            position: relative;
+            color: white;
+        }
+        
+        .container1 .label {
+            font-size: 15px;
+            padding-left: 10px;
+            position: absolute;
+            top: 13px;
+            transition: 0.3s;
+            pointer-events: none;
+        }
+        
+        .input {
+            width: 320px;
+            height: 45px;
+            border: none;
+            outline: none;
+            padding: 0px 7px;
+            border-radius: 6px;
+            color: #000000;
+            font-size: 15px;
+            background-color: transparent;
+            box-shadow: 3px 3px 10px rgba(0,0,0,1),
+            -1px -1px 6px rgba(255, 255, 255, 0.4);
+        }
+        
+        .input:focus {
+            border: 2px solid transparent;
+            color: #fff;
+            box-shadow: 3px 3px 10px rgba(0,0,0,1),
+            -1px -1px 6px rgba(255, 255, 255, 0.4),
+            inset 3px 3px 10px rgba(0,0,0,1),
+            inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+        }
+        
+        .container1 .input:valid ~ .label,
+        .container1 .input:focus ~ .label {
+            transition: 0.3s;
+            padding-left: 2px;
+            transform: translateY(-35px);
+        }
+        
+        .container1 .input:valid,
+        .container1 .input:focus {
+            box-shadow: 3px 3px 10px rgba(0,0,0,1),
+            -1px -1px 6px rgba(255, 255, 255, 0.4),
+            inset 3px 3px 10px rgba(0,0,0,1),
+            inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+        }
+        /* From Uiverse.io by gharsh11032000 */ 
+        .button {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center;
+            position: relative;
+            width: 100%;
+            height: 40px;
+            background-color: #000;
+            color: white;
+            flex-direction: column;
+            border: none;
+            padding: 12px;
+            gap: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        .button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            left: -4px;
+            top: -1px;
+            margin: auto;
+            width: 100%;
+            height: 48px;
+            border-radius: 10px;
+            background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );
+            z-index: -10;
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .button::after {
+            content: "";
+            z-index: -1;
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100% );
+            transform: translate3d(0, 0, 0) scale(0.95);
+            filter: blur(20px);
+        }
+        
+        .button:hover::after {
+            filter: blur(30px);
+        }
+        
+        .button:hover::before {
+            transform: rotate(-180deg);
+        }
+        
+        .button:active::before {
+            scale: 0.7;
+        }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="container bg-gray-100">
+    <div class="container mx-auto py-8 px-4">
+        <h1 class="text-3xl font-bold text-center mb-8" style="color: white;">Apply for Bus Pass</h1>
+        
+        <form id="buspassForm" class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-6" style="background-color: #00000089;">
+            <div class="grid grid-cols-2 gap-6" style="color: white;">
+                <div class="container1">
+                    
+                    <input type="text" id="name" required
+                        class="input">
+                    <label class="label">Name</label>
+                    <br/>
+                </div>
+                <div class="container1">
+                    
+                    <input type="text" id="rollno" required
+                        class="input">
+                        <label class="label">Roll number</label>
+                        <br/>
+                </div>
+                <div class="container1">
+                   
+                    <input type="number" id="age" required
+                        class="input">
+                        <label class="label">Age</label>
+                        <br/>
+                </div>
+
+                <div class="container1">
+                    
+                    <input type="date" id="dob" required
+                        class="input">
+                        <label class="label">Date of Birth</label>
+                        <br/>
+                </div>
+
+                <div class="container1">
+                    
+                    <input type="text" id="collegeName" required
+                        class="input">
+                        <label class="label">College Name</label>
+                        <br/>
+                </div>
+
+                <div class="container1">
+                    
+                    <input type="text" id="startPlace" required
+                        class="input">
+                        <label class="label">Starting Place</label>
+                        <br/>
+                </div>
+
+                <div class="container1">
+                    
+                    <input type="text" id="endPlace" required
+                        class="input">
+                        <label class="label">Ending Place</label>
+                        <br/>
+                </div>
+
+                <div class="col-span-2">
+                    <label class="label">Route Details</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" id="source1" placeholder="Source 1"
+                            class="input">
+                        <input type="text" id="destination1" placeholder="Destination 1"
+                            class="input">
+                        <input type="text" id="source2" placeholder="Source 2"
+                            class="input">
+                        <input type="text" id="destination2" placeholder="Final Destination"
+                            class="input">
+                    </div>
+                    <br/>
+                    <br/>
+                </div>
+
+                <div>
+                    <label class="label">Studying Year</label>
+                    <select id="studyingYear" required
+                        class="input" style="color: #000000;">
+                        <option value="" >Select Year</option>
+                        <option value="1">First Year</option>
+                        <option value="2">Second Year</option>
+                        <option value="3">Third Year</option>
+                        <option value="4">Fourth Year</option>
+                        <option value="5">Fifth Year</option>
+                    </select>
+                </div>
+
+                <div class="container1">
+                    <input type="text" id="department" required
+                        class="input">
+                        <label class="label">Department</label>
+                        <br/>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold mb-2">Student Signature</label>
+                    <input type="file" id="signature" accept="image/*" required
+                        class="input">
+                    <p class="text-sm text-gray-500 mt-1">Max size: 1MB</p>
+                
+                    <!-- Cropping Area (Initially Hidden) -->
+                    <div id="cropperContainer" class="hidden mt-4">
+                        <img id="cropperImage" class="max-w-full rounded-md">
+                        <div class="mt-2">
+                            <button id="cropImageBtn"
+                                class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300">
+                                Crop & Save
+                            </button>
+                        </div>
+                    </div>
+                
+                    <!-- Hidden Input to Store Cropped Image Data -->
+                    <input type="hidden" id="croppedSignature">
+                    <br/>
+                </div>
+                
+
+                <div class="container1">
+                    
+                    <input type="number" id="distance" required class="input">
+                    <label class="label">Distance (in km)</label>
+                </div>
+                <br/>
+            </div>
+
+            <div class="mt-6">
+                <button type="submit"
+                    class="button">
+                    Submit Application
+                </button>
+            </div>
+        </form>
+    </div>
+    <script src="./js/buspass.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
+<script>
+    let cropper;
+    const signatureInput = document.getElementById("signature");
+    const cropperContainer = document.getElementById("cropperContainer");
+    const cropperImage = document.getElementById("cropperImage");
+    const croppedSignature = document.getElementById("croppedSignature");
+    const cropImageBtn = document.getElementById("cropImageBtn");
+
+    signatureInput.addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                cropperImage.src = e.target.result;
+                cropperContainer.classList.remove("hidden");
+
+                // Destroy previous instance if exists
+                if (cropper) {
+                    cropper.destroy();
+                }
+
+                // Initialize Cropper.js
+                cropper = new Cropper(cropperImage, {
+                    aspectRatio: 3, // Adjust aspect ratio as needed
+                    viewMode: 2,
+                    autoCropArea: 1,
+                    cropBoxResizable: true,
+                    dragMode: "move",
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    cropImageBtn.addEventListener("click", function () {
+        if (cropper) {
+            const canvas = cropper.getCroppedCanvas({ width: 200, height: 100 }); // Adjust size
+            croppedSignature.value = canvas.toDataURL("image/png");
+
+            // Hide cropper and reset file input
+            cropperContainer.classList.add("hidden");
+            alert("Signature cropped successfully!");
+        }
+    });
+</script>
+
+</body>
+</html>

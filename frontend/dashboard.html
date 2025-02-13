@@ -1,0 +1,164 @@
+<!-- dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coimbatore City Bus Pass Portal</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.3.0/ol.css">
+    <style>
+        #map {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center;
+        }
+        .button {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center;
+            position: relative;
+            width: 200px;
+            height: 40px;
+            background-color: #000;
+            color: white;
+            flex-direction: column;
+            border: none;
+            padding: 12px;
+            gap: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        .button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            left: -4px;
+            top: -1px;
+            margin: auto;
+            width: 208px;
+            height: 48px;
+            border-radius: 10px;
+            background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );
+            z-index: -10;
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .button::after {
+            content: "";
+            z-index: -1;
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100% );
+            transform: translate3d(0, 0, 0) scale(0.95);
+            filter: blur(20px);
+        }
+        
+        .button:hover::after {
+            filter: blur(30px);
+        }
+        
+        .button:hover::before {
+            transform: rotate(-180deg);
+        }
+        
+        .button:active::before {
+            scale: 0.7;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            gap: 20px; /* Adds space between buttons */
+            margin-top: 20px; /* Optional: Adjust as needed */
+        }
+
+            /* From Uiverse.io by adamgiebl */ 
+        .container {
+            width: 100%;
+            height: 100%;
+            --color: rgba(114, 114, 114, 0.3);
+            background-color: #191a1a;
+            background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent),
+                linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent);
+            background-size: 55px 55px;
+        }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class=" container">
+    <nav class=" text-white p-4">
+        <div class=" mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Coimbatore City Bus Pass Portal</h1>
+            <div >
+                <div class="button-container">
+                    <a href="./apply.html" class="button">Apply for Bus Pass</a>
+                    <a href="./renewal.html" class="button">Renewal</a>
+                </div>
+                
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-8 p-4">
+        <div class="grid grid-cols-2 gap-8">
+            <!-- Frame 1: Steps to Apply -->
+            <div class="p-6 rounded-lg shadow-md" style="background-color: #00000087; color: white;">
+                <h2 class="text-xl font-bold mb-4">Steps to Apply for Bus Pass</h2>
+                <div class="space-y-4">
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h3 class="font-bold">Required Documents</h3>
+                        <ul class="list-disc ml-4 mt-2">
+                            <li>Valid College ID Card</li>
+                            <li>Proof of Address (Aadhaar/Ration Card)</li>
+                            <li>Passport size photograph</li>
+                            <li>Student signature</li>
+                        </ul>
+                    </div>
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h3 class="font-bold">Application Process</h3>
+                        <ol class="list-decimal ml-4 mt-2">
+                            <li>Fill in personal details</li>
+                            <li>Upload required documents</li>
+                            <li>Verify travel route</li>
+                            <li>Make payment</li>
+                            <li>Download bus pass</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frame 2: Renewal Instructions -->
+            <div class=" p-6 rounded-lg shadow-md" style="background-color: #00000087; color: white;">
+                <h2 class="text-xl font-bold mb-4">Steps to Renew Bus Pass</h2>
+                <div class="space-y-4">
+                    <div class="border-l-4 border-green-500 pl-4">
+                        <h3 class="font-bold">Renewal Process</h3>
+                        <ol class="list-decimal ml-4 mt-2">
+                            <li>Enter existing bus pass number</li>
+                            <li>Verify current details</li>
+                            <li>Update if any changes required</li>
+                            <li>Make renewal payment</li>
+                            <li>Download renewed bus pass</li>
+                        </ol>
+                    </div>
+                    <div class="border-l-4 border-green-500 pl-4" >
+                        <h3 class="font-bold">Important Notes</h3>
+                        <ul class="list-disc ml-4 mt-2">
+                            <li>Renew 7 days before expiry</li>
+                            <li>Verify all details are up to date</li>
+                            <li>Keep previous pass for reference</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <h2 style="color: white;" class="text-2xl font-bold"> Bus Stands in Coimbatore where Physical buspass can be issued</h2>
+        <br/>
+        <iframe src="./location.html" id = "map"></iframe>
+    </div>
+</body>
+</html>
