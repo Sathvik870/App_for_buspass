@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <div class="bg-white p-8 rounded-lg shadow-md max-w-2xl w-full">
+    <div class="bg-white p-8 rounded-lg shadow-md max-w-3xl w-full">
         <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Bus Pass with Validity</h2>
         
         <div class="space-y-4" id="validityForm">
@@ -48,6 +48,32 @@
             </div>
         </div>
 
+        <!-- Table 1 
+        <h3 class="text-lg font-bold mt-6 text-gray-800">Table 1: Dates 16-31</h3>
+        <table class="w-full border border-gray-400 mt-2" id="table1">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border px-4 py-2">Date</th>
+                    <th class="border px-4 py-2">Up</th>
+                    <th class="border px-4 py-2">Down</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>-->
+
+        <!-- Table 2 -->
+        <h3 class="text-lg font-bold mt-6 text-gray-800">Table 2: Dates 1-15</h3>
+        <table class="w-full border border-gray-400 mt-2" id="table2">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border px-4 py-2">Date</th>
+                    <th class="border px-4 py-2">Up</th>
+                    <th class="border px-4 py-2">Down</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
         <div class="mt-6 flex justify-between">
             <button id="downloadPdf" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
                 Download as PDF
@@ -60,7 +86,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Get user data from localStorage
             const userData = JSON.parse(localStorage.getItem('busPassData2'));
 
             if (userData) {
@@ -71,9 +96,8 @@
                 document.getElementById('distance').textContent = `${userData.distance} km`;
                 document.getElementById('renewalAmount').textContent = `₹${userData.charge}`;
 
-                // Calculate Validity Dates
                 const today = new Date();
-                const currentMonth = today.getMonth() + 1; // JavaScript months are 0-based
+                const currentMonth = today.getMonth() + 1;
                 const nextMonth = currentMonth === 12 ? 1 : currentMonth + 1;
                 const currentYear = today.getFullYear();
 
@@ -83,23 +107,37 @@
                 document.getElementById('validity').textContent = `${startingDate} to ${endingDate}`;
             }
 
-            // PDF // PDF Download Function
+            // Populate tables
+            /*function populateTable(tableId, start, end) {
+                const table = document.getElementById(tableId).querySelector('tbody');
+                for (let i = start; i <= end; i++) {
+                    const row = `<tr>
+                        <td class="border px-4 py-2">${i}</td>
+                        <td class="border px-4 py-2"><input type="text" class="w-full border px-2 py-1"></td>
+                        <td class="border px-4 py-2"><input type="text" class="w-full border px-2 py-1"></td>
+                    </tr>`;
+                    table.innerHTML += row;
+                }
+            }
+
+            populateTable("table1", 16, 31);
+            populateTable("table2", 1, 15);*/
+            const today = new Date();
+            const currentMonth = today.getMonth() + 1;
+            const nextMonth = currentMonth === 12 ? 1 : currentMonth + 1;
+            const currentYear = today.getFullYear();
+            const startingDate = `16/${currentMonth}/${currentYear}`;
+            const endingDate = `15/${nextMonth}/${currentYear}`;
+
+            // PDF Download
             document.getElementById('downloadPdf').addEventListener('click', () => {
-                // Calculate Validity Dates
-                const today = new Date();
-                const currentMonth = today.getMonth() + 1; // JavaScript months are 0-based
-                const nextMonth = currentMonth === 12 ? 1 : currentMonth + 1;
-                const currentYear = today.getFullYear();
-                
-                const startingDate = `16/${currentMonth}/${currentYear}`;
-                const endingDate = `15/${nextMonth}/${currentYear}`;
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
-                
+
                 doc.setFont('helvetica', 'bold');
                 doc.setFontSize(18);
                 doc.text('Bus Pass Renewal', 20, 20);
-                
+
                 doc.setFont('helvetica', 'normal');
                 doc.setFontSize(12);
                 doc.text(`Name: ${userData.name}`, 20, 40);
@@ -109,10 +147,26 @@
                 doc.text(`Distance: ${userData.distance} km`, 20, 80);
                 doc.text(`Renewal Amount: ₹${userData.charge}`, 20, 90);
                 doc.text(`Validity: ${startingDate} to ${endingDate}`, 20, 100);
+
+                // Function to add table to PDF
+                function addTableToPdf(startY, tableId) {
+                    let y = startY;
+                    const table = document.getElementById(tableId).querySelector('tbody').rows;
+                    for (let row of table) {
+                        let cells = row.cells;
+                        let rowData = `${cells[0].textContent}  |  ${cells[1].querySelector('input').value}  |  ${cells[2].querySelector('input').value}`;
+                        doc.text(rowData, 20, y);
+                        y += 7;
+                    }
+                    return y;
+                }
+
+                let nextY = addTableToPdf(120, "table1");
+                addTableToPdf(nextY + 10, "table2");
+
                 doc.save('BusPass_Renewal.pdf');
             });
 
-            // Navigate back to Dashboard
             document.getElementById('backToDashboard').addEventListener('click', () => {
                 window.location.href = 'dashboard.html';
             });
