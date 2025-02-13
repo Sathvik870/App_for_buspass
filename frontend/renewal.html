@@ -113,8 +113,14 @@
             try {
                 const response = await fetch(`http://localhost:5000/api/buspass/${rollno}/${dob}`);
                 const data = await response.json();
-    
+                
                 if (response.ok) {
+                    console.log(data);
+                    if (data.status === "Paid") {
+                        alert("This account is already renewed and cannot be used for renewal.");
+                        document.getElementById("proceedToPayment").disabled = true;
+                        return; // Stop execution if already paid
+                    }
                     document.getElementById("name").value = data.name;
                     document.getElementById("collegeName").value = data.collegeName;
                     document.getElementById("startPlace").value = data.startPlace;
@@ -123,10 +129,8 @@
                     document.getElementById("department").value = data.department;
                     document.getElementById("expiryDate").value = data.expiryDate;
                     document.getElementById("renewalAmount").value = data.renewalAmount;
-
                     document.getElementById("detailsForm").classList.remove("hidden");
                     document.getElementById("proceedToPayment").disabled = false;
-                    console.log(data);
                     localStorage.setItem("rollNumber",rollno );
                     localStorage.setItem("busPassData2", JSON.stringify(data));
                     localStorage.setItem("payableAmount2", data.renewalAmount);

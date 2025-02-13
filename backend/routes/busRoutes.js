@@ -58,7 +58,8 @@ router.get("/:rollno/:dob", async (req, res) => {
             studyingYear: busPass.studyingYear,
             department: busPass.department,
             expiryDate: busPass.expiryDate,
-            renewalAmount: busPass.charge
+            renewalAmount: busPass.charge,
+            status: busPass.status
         });
     } catch (error) {
         console.error("Error fetching bus pass:", error);
