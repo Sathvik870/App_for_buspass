@@ -126,6 +126,7 @@
 
                     document.getElementById("detailsForm").classList.remove("hidden");
                     document.getElementById("proceedToPayment").disabled = false;
+                    console.log(data);
                     localStorage.setItem("rollNumber",rollno );
                     localStorage.setItem("busPassData2", JSON.stringify(data));
                     localStorage.setItem("payableAmount2", data.renewalAmount);

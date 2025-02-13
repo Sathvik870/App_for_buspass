@@ -31,12 +31,6 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2">Ending Place:</label>
                 <p id="endPlace" class="text-gray-900 font-semibold"></p>
             </div>
-
-            <div>
-                <label class="block text-gray-700 text-sm font-bold mb-2">Distance (in km):</label>
-                <p id="distance" class="text-gray-900 font-semibold"></p>
-            </div>
-
             <div>
                 <label class="block text-gray-700 text-sm font-bold mb-2">Renewal Amount:</label>
                 <p id="renewalAmount" class="text-gray-900 font-semibold"></p>
@@ -47,33 +41,6 @@
                 <p id="validity" class="text-green-600 font-semibold"></p>
             </div>
         </div>
-
-        <!-- Table 1 
-        <h3 class="text-lg font-bold mt-6 text-gray-800">Table 1: Dates 16-31</h3>
-        <table class="w-full border border-gray-400 mt-2" id="table1">
-            <thead>
-                <tr class="bg-gray-200">
-                    <th class="border px-4 py-2">Date</th>
-                    <th class="border px-4 py-2">Up</th>
-                    <th class="border px-4 py-2">Down</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>-->
-
-        <!-- Table 2 -->
-        <h3 class="text-lg font-bold mt-6 text-gray-800">Table 2: Dates 1-15</h3>
-        <table class="w-full border border-gray-400 mt-2" id="table2">
-            <thead>
-                <tr class="bg-gray-200">
-                    <th class="border px-4 py-2">Date</th>
-                    <th class="border px-4 py-2">Up</th>
-                    <th class="border px-4 py-2">Down</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-
         <div class="mt-6 flex justify-between">
             <button id="downloadPdf" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
                 Download as PDF
@@ -93,8 +60,7 @@
                 document.getElementById('collegeName').textContent = userData.collegeName;
                 document.getElementById('startPlace').textContent = userData.startPlace;
                 document.getElementById('endPlace').textContent = userData.endPlace;
-                document.getElementById('distance').textContent = `${userData.distance} km`;
-                document.getElementById('renewalAmount').textContent = `₹${userData.charge}`;
+                document.getElementById('renewalAmount').textContent = `₹${userData.renewalAmount}`;
 
                 const today = new Date();
                 const currentMonth = today.getMonth() + 1;
@@ -107,21 +73,7 @@
                 document.getElementById('validity').textContent = `${startingDate} to ${endingDate}`;
             }
 
-            // Populate tables
-            /*function populateTable(tableId, start, end) {
-                const table = document.getElementById(tableId).querySelector('tbody');
-                for (let i = start; i <= end; i++) {
-                    const row = `<tr>
-                        <td class="border px-4 py-2">${i}</td>
-                        <td class="border px-4 py-2"><input type="text" class="w-full border px-2 py-1"></td>
-                        <td class="border px-4 py-2"><input type="text" class="w-full border px-2 py-1"></td>
-                    </tr>`;
-                    table.innerHTML += row;
-                }
-            }
-
-            populateTable("table1", 16, 31);
-            populateTable("table2", 1, 15);*/
+            
             const today = new Date();
             const currentMonth = today.getMonth() + 1;
             const nextMonth = currentMonth === 12 ? 1 : currentMonth + 1;
@@ -133,40 +85,30 @@
             document.getElementById('downloadPdf').addEventListener('click', () => {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
-
                 doc.setFont('helvetica', 'bold');
                 doc.setFontSize(18);
                 doc.text('Bus Pass Renewal', 20, 20);
-
                 doc.setFont('helvetica', 'normal');
                 doc.setFontSize(12);
                 doc.text(`Name: ${userData.name}`, 20, 40);
                 doc.text(`College Name: ${userData.collegeName}`, 20, 50);
                 doc.text(`Starting Place: ${userData.startPlace}`, 20, 60);
                 doc.text(`Ending Place: ${userData.endPlace}`, 20, 70);
-                doc.text(`Distance: ${userData.distance} km`, 20, 80);
-                doc.text(`Renewal Amount: ₹${userData.charge}`, 20, 90);
-                doc.text(`Validity: ${startingDate} to ${endingDate}`, 20, 100);
-
-                // Function to add table to PDF
-                function addTableToPdf(startY, tableId) {
-                    let y = startY;
-                    const table = document.getElementById(tableId).querySelector('tbody').rows;
-                    for (let row of table) {
-                        let cells = row.cells;
-                        let rowData = `${cells[0].textContent}  |  ${cells[1].querySelector('input').value}  |  ${cells[2].querySelector('input').value}`;
-                        doc.text(rowData, 20, y);
-                        y += 7;
-                    }
-                    return y;
-                }
-
-                let nextY = addTableToPdf(120, "table1");
-                addTableToPdf(nextY + 10, "table2");
-
-                doc.save('BusPass_Renewal.pdf');
+                doc.text(`Renewal Amount: ₹ ${userData.renewalAmount}`, 20, 80);
+                doc.text(`Validity: ${startingDate} to ${endingDate}`, 20, 90);
+                doc.addPage(); 
+                const img1 = new Image();
+                img1.src = "https://i.imgur.com/6IALMa3.jpeg";
+                img1.onload = function () {
+                    doc.addImage(img1, 'JPEG', 20, 20, 170, 130);
+                    const img2 = new Image();
+                    img2.src = "https://i.imgur.com/HWYYx2J.jpeg"; 
+                    img2.onload = function () {
+                        doc.addImage(img2, 'JPEG', 20, 150, 170, 130); 
+                        doc.save(`Renewed_pass_${userData.name}.pdf`); 
+                    };
+                };
             });
-
             document.getElementById('backToDashboard').addEventListener('click', () => {
                 window.location.href = 'dashboard.html';
             });

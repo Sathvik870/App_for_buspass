@@ -289,9 +289,9 @@
 
                 // Initialize Cropper.js
                 cropper = new Cropper(cropperImage, {
-                    aspectRatio: 3, // Adjust aspect ratio as needed
-                    viewMode: 2,
-                    autoCropArea: 1,
+                    aspectRatio: NaN, // Adjust aspect ratio as needed
+                    viewMode: 3,   
+                    autoCropArea: 0.8,
                     cropBoxResizable: true,
                     dragMode: "move",
                 });
@@ -302,7 +302,7 @@
 
     cropImageBtn.addEventListener("click", function () {
         if (cropper) {
-            const canvas = cropper.getCroppedCanvas({ width: 200, height: 100 }); // Adjust size
+            const canvas = cropper.getCroppedCanvas({ width: 500, height: 500   }); // Adjust size
             croppedSignature.value = canvas.toDataURL("image/png");
 
             // Hide cropper and reset file input
