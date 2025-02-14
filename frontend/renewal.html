@@ -6,62 +6,131 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bus Pass Renewal</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* From Uiverse.io by milegelu */ 
+        .container {
+            width: 100%;
+            height: 100%;
+        
+            background: #000000;
+            --gap: 5em;
+            --line: 1px;
+            --color: rgba(255, 255, 255, 0.2);
+        
+            background-image: linear-gradient(
+                -90deg,
+                transparent calc(var(--gap) - var(--line)),
+                var(--color) calc(var(--gap) - var(--line) + 1px),
+                var(--color) var(--gap)
+            ),
+            linear-gradient(
+                0deg,
+                transparent calc(var(--gap) - var(--line)),
+                var(--color) calc(var(--gap) - var(--line) + 1px),
+                var(--color) var(--gap)
+            );
+            background-size: var(--gap) var(--gap);
+        }
+        /* From Uiverse.io by MrAlexanderFS003 */ 
+/* Component for light mode*/
+button {
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .button-lite {
+    background-color: transparent;
+    border: 2px solid rgb(0, 45, 141);
+    border-bottom-width: 2px;
+    border-bottom-style: groove;
+    color: rgb(0, 31, 97);
+    padding: 15px 32px;
+    display: inline-block;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 4px 2px;
+    border-radius: 12px;
+    transition: all 0.1s ease-in;
+  }
+  
+  .button-lite:hover {
+    background-color: rgb(237, 241, 255);
+    border-color: rgb(0, 60, 189);
+    box-shadow: 0px 0px 5px #003cbd77;
+    border-bottom-width: 2px;
+    border-bottom-style: groove;
+    color: rgb(3, 48, 146);
+  }
+  
+  .button-lite:active {
+    border-color: rgb(0, 68, 216);
+    border-bottom-width: 2px;
+    border-bottom-style: groove;
+    color: rgb(0, 73, 230);
+    transform: translateY(2px);
+    box-shadow: 0px 5px 5px rgb(153, 168, 252) inset;
+  }
+  
+    </style>
 </head>
-<body class="bg-gray-100">
-    <div class="container mx-auto py-8 px-4">
-        <h1 class="text-3xl font-bold text-center mb-8">Bus Pass Renewal</h1>
+<body class="bg-gray-100 ">
+    <div class="container  mx-auto py-8 px-4" style="height: 1100px; width:100%">
+        <h1 class="text-3xl font-bold text-center mb-8" >Bus Pass Renewal</h1>
 
         <!-- Search Form -->
-        <div class="max-w-xl mx-auto bg-white rounded-lg shadow-md p-6 mb-8">
+        <div class="max-w-xl mx-auto bg-white rounded-lg shadow-md p-6 mb-8" style="background-color: #000000ae;">
             <form id="searchForm" class="space-y-4">
                 <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Enter Your College Roll Number</label>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Enter Your College Roll Number</label>
                     <input type="text" id="rollno" required
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="College Roll Number">
                 </div>
                 <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Enter Your Date of Birth (DD-MM-YYYY)</label>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Enter Your Date of Birth (DD-MM-YYYY)</label>
                     <input type="date" id="dob" required
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <button type="submit"
-                    class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300">
+                    class="w-full button-lite">
                     Search
                 </button>
             </form>
         </div>
 
         <!-- Details Form (Initially Hidden) -->
-        <div id="detailsForm" class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-6 hidden">
-            <h2 class="text-xl font-bold mb-6">Current Bus Pass Details</h2>
+        <div id="detailsForm" class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-6 hidden" style="background-color: #000000ae; ">
+            <h2 class="text-xl font-bold mb-6" style="color: white;">Current Bus Pass Details</h2>
             <div class="grid grid-cols-2 gap-6">
                 <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Name</label>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Name</label>
                     <input type="text" id="name" readonly
                         class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md">
                 </div>
 
                 <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2">College Name</label>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">College Name</label>
                     <input type="text" id="collegeName" readonly
                         class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md">
                 </div>
 
                 <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Starting Place</label>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Starting Place</label>
                     <input type="text" id="startPlace" readonly
                         class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md">
                 </div>
 
                 <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Ending Place</label>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Ending Place</label>
                     <input type="text" id="endPlace" readonly
                         class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md">
                 </div>
 
                 <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Current Year</label>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Current Year</label>
                     <select id="studyingYear" required
                         class="w-full px-3 py-2 border border-gray-300 rounded-md">
                         <option value="1">First Year</option>
@@ -72,19 +141,19 @@
                 </div>
 
                 <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Department</label>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Department</label>
                     <input type="text" id="department" readonly
                         class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md">
                 </div>
 
                 <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Current Pass Expiry Date</label>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Current Pass Expiry Date</label>
                     <input type="text" id="expiryDate" readonly
                         class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md">
                 </div>
 
                 <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Renewal Amount</label>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Renewal Amount</label>
                     <input type="text" id="renewalAmount" readonly
                         class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md">
                 </div>
@@ -92,11 +161,11 @@
 
             <div class="mt-8 space-y-4">
                 <button id="proceedToPayment" disabled
-                    class="w-full bg-green-500 text-white py-3 px-4 rounded-md hover:bg-green-600 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                    class="w-full button-lite">
                     <a href="./payment2.html">Proceed to Payment</a>
                 </button>
                 <button id="cancelRenewal"
-                    class="w-full bg-gray-200 text-gray-700 py-3 px-4 rounded-md hover:bg-gray-300 transition duration-300">
+                    class="w-full button-lite">
                     Cancel
                 </button>
             </div>

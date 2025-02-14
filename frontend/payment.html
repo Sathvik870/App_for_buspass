@@ -6,27 +6,148 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Gateway</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+            /* From Uiverse.io by vikas7754 */ 
+    .container {
+        width: 100%;
+        height: 100%;
+        /* Add your background pattern here */
+        --sz: 15px;
+        --c0: #000;
+        --c1: #c71175;
+        --ts: 50% / calc(var(--sz) * 8) calc(var(--sz) * 16);
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        --dot: var(--c1) 0 calc(var(--sz) * 0.78),
+        #fff0 calc(calc(var(--sz) * 0.78) + 1px) 100%;
+        --dot2: radial-gradient(circle at 90% 0%, var(--dot)) var(--ts),
+        radial-gradient(circle at 65% 0%, var(--dot)) var(--ts),
+        radial-gradient(circle at 40% 0%, var(--dot)) var(--ts),
+        radial-gradient(circle at 15% 0%, var(--dot)) var(--ts);
+        --cg1: conic-gradient(from -90deg at 5% 51%, var(--c0) 0 90deg, #fff0 0 100%)
+        var(--ts);
+        --cg2: conic-gradient(from -90deg at 25% 50%, var(--c1) 0 90deg, #fff0 0 100%)
+        var(--ts);
+        --cg3: conic-gradient(
+            from -90deg at 30% 38.5%,
+            var(--c0) 0 90deg,
+            #fff0 0 100%
+        )
+        var(--ts);
+        --cg4: conic-gradient(
+            from -90deg at 50% 37.5%,
+            var(--c1) 0 90deg,
+            #fff0 0 100%
+        )
+        var(--ts);
+        --cg5: conic-gradient(from -90deg at 55% 26%, var(--c0) 0 90deg, #fff0 0 100%)
+        var(--ts);
+        --cg6: conic-gradient(from -90deg at 75% 25%, var(--c1) 0 90deg, #fff0 0 100%)
+        var(--ts);
+        --cg7: conic-gradient(
+            from -90deg at 80% 13.5%,
+            var(--c0) 0 90deg,
+            #fff0 0 100%
+        )
+        var(--ts);
+        --cg8: conic-gradient(
+            from -90deg at 100% 12.5%,
+            var(--c1) 0 90deg,
+            #fff0 0 100%
+        )
+        var(--ts);
+    
+        background: var(--dot2), var(--dot2),
+        radial-gradient(circle at 90% 100%, var(--dot)) var(--ts),
+        radial-gradient(circle at 65% 100%, var(--dot)) var(--ts),
+        radial-gradient(circle at 40% 100%, var(--dot)) var(--ts),
+        radial-gradient(circle at 15% 100%, var(--dot)) var(--ts),
+        radial-gradient(circle at 90% 12.5%, var(--dot)) var(--ts),
+        radial-gradient(circle at 65% 25%, var(--dot)) var(--ts),
+        radial-gradient(circle at 40% 37.5%, var(--dot)) var(--ts),
+        radial-gradient(circle at 15% 50%, var(--dot)) var(--ts), var(--cg1),
+        var(--cg1), var(--cg2), var(--cg2), var(--cg3), var(--cg3), var(--cg4),
+        var(--cg4), var(--cg5), var(--cg5), var(--cg6), var(--cg6), var(--cg7),
+        var(--cg7), var(--cg8), var(--cg8),
+        linear-gradient(-45deg, #fff0 0 32.25%, #0002 50%, #000 77.5%) var(--ts),
+        linear-gradient(-45deg, #fff0 0 32.25%, #000 60%) var(--ts),
+        repeating-linear-gradient(90deg, var(--c0) 0 5%, var(--c1) 0 25%) var(--ts);
+    }
+    /* From Uiverse.io by joe-watson-sbf */ 
+.btn {
+    font-size: 17px;
+    background: transparent;
+    border: none;
+    padding: 1em 1.5em;
+    color: #ffedd3;
+    text-transform: uppercase;
+    position: relative;
+    transition: 0.5s ease;
+    cursor: pointer;
+  }
+  
+  .btn::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background-color: #ffc506;
+    transition: 0.5s ease;
+  }
+  
+  .btn:hover {
+    color: #1e1e2b;
+    transition-delay: 0.5s;
+  }
+  
+  .btn:hover::before {
+    width: 100%;
+  }
+  
+  .btn::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 0;
+    width: 100%;
+    background-color: #ffc506;
+    transition: 0.4s ease;
+    z-index: -1;
+  }
+  
+  .btn:hover::after {
+    height: 100%;
+    transition-delay: 0.4s;
+    color: aliceblue;
+  }
+  
+  
+    </style>
 </head>
-<body class="bg-gray-100">
-    <div class="container mx-auto py-8 px-4">
-        <h1 class="text-3xl font-bold text-center mb-8">Payment Gateway</h1>
+<body class="bg-gray-100 container">
+    <div class=" mx-auto py-8 px-4">
+        <h1 class="text-3xl font-bold text-center mb-8" style="color: white;">Payment Gateway</h1>
         
-        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6">
+        <div class="max-w-2xl mx-auto  rounded-lg shadow-md p-6" style="background-color: #00000075;">
             <div class="mb-6">
-                <h2 class="text-xl font-bold mb-4">Amount to Pay: ₹<span id="amountDisplay"></span></h2>
+                <h2 class="text-xl font-bold mb-4" style="color: white;">Amount to Pay: ₹<span id="amountDisplay"></span></h2>
             </div>
 
             <div class="space-y-6">
                 <!-- Payment Method Selection -->
-                <div>
+                <div style="color: white;">
                     <h3 class="text-lg font-semibold mb-3">Select Payment Method</h3>
                     <div class="grid grid-cols-2 gap-4">
-                        <button class="payment-method-btn bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition"
-                            data-method="card">
+                        <button class="btn payment-method-btn text-white "
+                            data-method="card" >
                             <i class="fas fa-credit-card mb-2"></i>
                             Card Payment
                         </button>
-                        <button class="payment-method-btn bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition"
+                        <button class="btn payment-method-btn  "
                             data-method="upi">
                             <i class="fas fa-mobile-alt mb-2"></i>
                             UPI
@@ -35,21 +156,21 @@
                 </div>
 
                 <!-- Card Payment Form -->
-                <form id="cardPaymentForm" class="hidden payment-form">
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-gray-700 text-sm font-bold mb-2">Card Number</label>
+                <form id="cardPaymentForm" class="hidden payment-form" style="color: white;">
+                    <div class="space-y-4" >
+                        <div >
+                            <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Card Number</label>
                             <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md">
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-gray-700 text-sm font-bold mb-2">Expiry Date</label>
+                                <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Expiry Date</label>
                                 <input type="text" id="expiryDate" placeholder="MM/YY"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-md">
                             </div>
                             <div>
-                                <label class="block text-gray-700 text-sm font-bold mb-2">CVV</label>
+                                <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">CVV</label>
                                 <input type="password" id="cvv" placeholder="123"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-md">
                             </div>
@@ -58,16 +179,16 @@
                 </form>
 
                 <!-- UPI Payment Form -->
-                <form id="upiPaymentForm" class="hidden payment-form">
+                <form id="upiPaymentForm" class="hidden payment-form" >
                     <div>
-                        <label class="block text-gray-700 text-sm font-bold mb-2">UPI ID</label>
+                        <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">UPI ID</label>
                         <input type="text" id="upiId" placeholder="username@upi"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md">
                     </div>
                 </form>
 
                 <button id="payButton"
-                    class="w-full bg-blue-500 text-white py-3 px-4 rounded-md hover:bg-blue-600 transition duration-300">
+                    class=" btn w-full  text-white py-3 px-4 ">
                     Pay Now
                 </button>
             </div>
