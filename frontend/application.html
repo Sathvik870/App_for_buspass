@@ -87,7 +87,7 @@
                 doc.text(`Distance: ${userData.distance} km`, 20, 80);
                 doc.text(`Renewal Amount: ₹${userData.charge}`, 20, 90);
     
-                doc.save('BusPass_Application.pdf');
+                doc.save(`Buspass_id_${userData.name}.pdf`);
             });
     
             // Navigate back to Dashboard
