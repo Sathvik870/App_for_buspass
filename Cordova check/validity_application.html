@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Pass Validity</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        /* From Uiverse.io by SelfMadeSystem */ 
+/* The variation: the hexagonal lattice is rotated */
+.container {
+    width: 100%;
+    height: 100%;
+    --s: 6em;
+    --d: 0.3em;
+    --bg: #232228;
+    --fg: rgb(90, 92, 102);
+    background-color: var(--bg);
+    background-image: radial-gradient(
+        var(--d) var(--d) at var(--d) var(--d),
+        var(--fg) 100%,
+        transparent 100%
+      ),
+      radial-gradient(
+        var(--d) var(--d) at calc(var(--d) + 33.3%) var(--d),
+        var(--fg) 100%,
+        transparent 100%
+      ),
+      radial-gradient(
+        var(--d) var(--d) at calc(var(--d) + 50%) calc(var(--d) + 50%),
+        var(--fg) 100%,
+        transparent 100%
+      ),
+      radial-gradient(
+        var(--d) var(--d) at calc(var(--d) + 83.3%) calc(var(--d) + 50%),
+        var(--fg) 100%,
+        transparent 100%
+      );
+    background-size: var(--s) calc(var(--s) * 0.577350269);
+  }
+  /* From Uiverse.io by niat786 */ 
+button {
+    border: none;
+    color: #fff;
+    background-image: linear-gradient(30deg, #0400ff, #4ce3f7);
+    border-radius: 20px;
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 17px;
+    padding: 0.6em 1.5em;
+   }
+   
+   button:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse512 1.5s infinite;
+   }
+   
+   @keyframes pulse512 {
+    0% {
+     box-shadow: 0 0 0 0 #05bada66;
+    }
+   
+    70% {
+     box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+    }
+   
+    100% {
+     box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+    }
+   }
+    </style>
+</head>
+<body class=" flex items-center justify-center min-h-screen container">
+    <div class="bg-white p-8 rounded-lg shadow-md max-w-3xl w-full" style="background-color: rgba(0, 0, 0, 0.484);">
+        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800" style="color: white;">Bus Pass with Validity</h2>
+        
+        <div class="space-y-4" id="validityForm">
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Name:</label>
+                <p id="name" class="text-gray-900 font-semibold" style="color: white;"></p>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">College Name:</label>
+                <p id="collegeName" class="text-gray-900 font-semibold" style="color: white;"></p>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Starting Place:</label>
+                <p id="startPlace" class="text-gray-900 font-semibold" style="color: white;"></p>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Ending Place:</label>
+                <p id="endPlace" class="text-gray-900 font-semibold" style="color: white;"></p>
+            </div>
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Renewal Amount:</label>
+                <p id="renewalAmount" class="text-gray-900 font-semibold" style="color: white;"></p>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Validity:</label>
+                <p id="validity" class="text-green-600 font-semibold"></p>
+            </div>
+        </div>
+        <div class="mt-6 flex justify-between">
+            <button id="downloadPdf" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
+                Download as PDF
+            </button>
+            <button id="backToDashboard" class="bg-gray-400 text-white py-2 px-4 rounded-md hover:bg-gray-500">
+                Back to Dashboard
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userData = JSON.parse(localStorage.getItem('busPassData2'));
+
+            if (userData) {
+                document.getElementById('name').textContent = userData.name;
+                document.getElementById('collegeName').textContent = userData.collegeName;
+                document.getElementById('startPlace').textContent = userData.startPlace;
+                document.getElementById('endPlace').textContent = userData.endPlace;
+                document.getElementById('renewalAmount').textContent = `₹${userData.renewalAmount}`;
+
+                const today = new Date();
+                const currentMonth = today.getMonth() + 1;
+                const nextMonth = currentMonth === 12 ? 1 : currentMonth + 1;
+                const currentYear = today.getFullYear();
+
+                const startingDate = `16/${currentMonth}/${currentYear}`;
+                const endingDate = `15/${nextMonth}/${currentYear}`;
+
+                document.getElementById('validity').textContent = `${startingDate} to ${endingDate}`;
+            }
+
+            
+            const today = new Date();
+            const currentMonth = today.getMonth() + 1;
+            const nextMonth = currentMonth === 12 ? 1 : currentMonth + 1;
+            const currentYear = today.getFullYear();
+            const startingDate = `16/${currentMonth}/${currentYear}`;
+            const endingDate = `15/${nextMonth}/${currentYear}`;
+
+            // PDF Download
+            document.getElementById('downloadPdf').addEventListener('click', () => {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(18);
+                doc.text('Bus Pass Renewal', 20, 20);
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(12);
+                doc.text(`Name: ${userData.name}`, 20, 40);
+                doc.text(`College Name: ${userData.collegeName}`, 20, 50);
+                doc.text(`Starting Place: ${userData.startPlace}`, 20, 60);
+                doc.text(`Ending Place: ${userData.endPlace}`, 20, 70);
+                doc.text(`Renewal Amount: ₹ ${userData.renewalAmount}`, 20, 80);
+                doc.text(`Validity: ${startingDate} to ${endingDate}`, 20, 90);
+                doc.addPage(); 
+                const img1 = new Image();
+                img1.src = "https://i.imgur.com/6IALMa3.jpeg";
+                img1.onload = function () {
+                    doc.addImage(img1, 'JPEG', 20, 20, 170, 130);
+                    const img2 = new Image();
+                    img2.src = "https://i.imgur.com/HWYYx2J.jpeg"; 
+                    img2.onload = function () {
+                        doc.addImage(img2, 'JPEG', 20, 150, 170, 130); 
+                        doc.save(`Renewed_pass_${userData.name}.pdf`); 
+                    };
+                };
+            });
+            document.getElementById('backToDashboard').addEventListener('click', () => {
+                window.location.href = 'dashboard.html';
+            });
+        });
+    </script>
+</body>
+</html>

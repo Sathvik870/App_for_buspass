@@ -1,0 +1,220 @@
+<!-- renewal.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Pass Renewal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* From Uiverse.io by milegelu */ 
+        .container {
+            width: 100%;
+            height: 100%;
+        
+            background: #000000;
+            --gap: 5em;
+            --line: 1px;
+            --color: rgba(255, 255, 255, 0.2);
+        
+            background-image: linear-gradient(
+                -90deg,
+                transparent calc(var(--gap) - var(--line)),
+                var(--color) calc(var(--gap) - var(--line) + 1px),
+                var(--color) var(--gap)
+            ),
+            linear-gradient(
+                0deg,
+                transparent calc(var(--gap) - var(--line)),
+                var(--color) calc(var(--gap) - var(--line) + 1px),
+                var(--color) var(--gap)
+            );
+            background-size: var(--gap) var(--gap);
+        }
+        /* From Uiverse.io by MrAlexanderFS003 */ 
+/* Component for light mode*/
+button {
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .button-lite {
+    background-color: transparent;
+    border: 2px solid rgb(0, 45, 141);
+    border-bottom-width: 2px;
+    border-bottom-style: groove;
+    color: rgb(0, 31, 97);
+    padding: 15px 32px;
+    display: inline-block;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 4px 2px;
+    border-radius: 12px;
+    transition: all 0.1s ease-in;
+  }
+  
+  .button-lite:hover {
+    background-color: rgb(237, 241, 255);
+    border-color: rgb(0, 60, 189);
+    box-shadow: 0px 0px 5px #003cbd77;
+    border-bottom-width: 2px;
+    border-bottom-style: groove;
+    color: rgb(3, 48, 146);
+  }
+  
+  .button-lite:active {
+    border-color: rgb(0, 68, 216);
+    border-bottom-width: 2px;
+    border-bottom-style: groove;
+    color: rgb(0, 73, 230);
+    transform: translateY(2px);
+    box-shadow: 0px 5px 5px rgb(153, 168, 252) inset;
+  }
+  
+    </style>
+</head>
+<body class="bg-gray-100 ">
+    <div class="container  mx-auto py-8 px-4" style="height: 1100px; width:100%">
+        <h1 class="text-3xl font-bold text-center mb-8" >Bus Pass Renewal</h1>
+
+        <!-- Search Form -->
+        <div class="max-w-xl mx-auto bg-white rounded-lg shadow-md p-6 mb-8" style="background-color: #000000ae;">
+            <form id="searchForm" class="space-y-4">
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Enter Your College Roll Number</label>
+                    <input type="text" id="rollno" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="College Roll Number">
+                </div>
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Enter Your Date of Birth (DD-MM-YYYY)</label>
+                    <input type="date" id="dob" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <button type="submit"
+                    class="w-full button-lite">
+                    Search
+                </button>
+            </form>
+        </div>
+
+        <!-- Details Form (Initially Hidden) -->
+        <div id="detailsForm" class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-6 hidden" style="background-color: #000000ae; ">
+            <h2 class="text-xl font-bold mb-6" style="color: white;">Current Bus Pass Details</h2>
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Name</label>
+                    <input type="text" id="name" readonly
+                        class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md">
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">College Name</label>
+                    <input type="text" id="collegeName" readonly
+                        class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md">
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Starting Place</label>
+                    <input type="text" id="startPlace" readonly
+                        class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md">
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Ending Place</label>
+                    <input type="text" id="endPlace" readonly
+                        class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md">
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Current Year</label>
+                    <select id="studyingYear" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        <option value="1">First Year</option>
+                        <option value="2">Second Year</option>
+                        <option value="3">Third Year</option>
+                        <option value="4">Fourth Year</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Department</label>
+                    <input type="text" id="department" readonly
+                        class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md">
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Current Pass Expiry Date</label>
+                    <input type="text" id="expiryDate" readonly
+                        class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md">
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Renewal Amount</label>
+                    <input type="text" id="renewalAmount" readonly
+                        class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md">
+                </div>
+            </div>
+
+            <div class="mt-8 space-y-4">
+                <button id="proceedToPayment" disabled
+                    class="w-full button-lite">
+                    <a href="./payment2.html">Proceed to Payment</a>
+                </button>
+                <button id="cancelRenewal"
+                    class="w-full button-lite">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("searchForm").addEventListener("submit", async function (event) {
+            event.preventDefault();
+            
+            const rollno = document.getElementById("rollno").value;
+            const dob = document.getElementById("dob").value;
+    
+            try {
+                const response = await fetch(`https://buspass-api.onrender.com/api/buspass/${rollno}/${dob}`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    console.log(data);
+                    if (data.status === "Paid") {
+                        alert("This account is already renewed and cannot be used for renewal.");
+                        document.getElementById("proceedToPayment").disabled = true;
+                        return; // Stop execution if already paid
+                    }
+                    document.getElementById("name").value = data.name;
+                    document.getElementById("collegeName").value = data.collegeName;
+                    document.getElementById("startPlace").value = data.startPlace;
+                    document.getElementById("endPlace").value = data.endPlace;
+                    document.getElementById("studyingYear").value = data.studyingYear;
+                    document.getElementById("department").value = data.department;
+                    document.getElementById("expiryDate").value = data.expiryDate;
+                    document.getElementById("renewalAmount").value = data.renewalAmount;
+                    document.getElementById("detailsForm").classList.remove("hidden");
+                    document.getElementById("proceedToPayment").disabled = false;
+                    localStorage.setItem("rollNumber",rollno );
+                    localStorage.setItem("busPassData2", JSON.stringify(data));
+                    localStorage.setItem("payableAmount2", data.renewalAmount);
+                } else {
+                    alert("Invalid Roll Number or Date of Birth.");
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                alert("Failed to fetch details. Try again!");
+            }
+        });
+
+        document.getElementById("cancelRenewal").addEventListener("click", function () {
+            document.getElementById("detailsForm").classList.add("hidden");
+        });
+    </script>
+</body>
+</html>

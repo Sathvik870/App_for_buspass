@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        /* From Uiverse.io by SelfMadeSystem */ 
+/* The variation: the hexagonal lattice is rotated */
+.container {
+    width: 100%;
+    height: 100%;
+    --s: 6em;
+    --d: 0.3em;
+    --bg: #232228;
+    --fg: rgb(90, 92, 102);
+    background-color: var(--bg);
+    background-image: radial-gradient(
+        var(--d) var(--d) at var(--d) var(--d),
+        var(--fg) 100%,
+        transparent 100%
+      ),
+      radial-gradient(
+        var(--d) var(--d) at calc(var(--d) + 33.3%) var(--d),
+        var(--fg) 100%,
+        transparent 100%
+      ),
+      radial-gradient(
+        var(--d) var(--d) at calc(var(--d) + 50%) calc(var(--d) + 50%),
+        var(--fg) 100%,
+        transparent 100%
+      ),
+      radial-gradient(
+        var(--d) var(--d) at calc(var(--d) + 83.3%) calc(var(--d) + 50%),
+        var(--fg) 100%,
+        transparent 100%
+      );
+    background-size: var(--s) calc(var(--s) * 0.577350269);
+  }
+  /* From Uiverse.io by niat786 */ 
+button {
+    border: none;
+    color: #fff;
+    background-image: linear-gradient(30deg, #0400ff, #4ce3f7);
+    border-radius: 20px;
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 17px;
+    padding: 0.6em 1.5em;
+   }
+   
+   button:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse512 1.5s infinite;
+   }
+   
+   @keyframes pulse512 {
+    0% {
+     box-shadow: 0 0 0 0 #05bada66;
+    }
+   
+    70% {
+     box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+    }
+   
+    100% {
+     box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+    }
+   }
+    </style>
+</head>
+<body class=" flex items-center justify-center min-h-screen container">
+    <div class="bg-white p-8 rounded-lg shadow-md max-w-2xl w-full" style="background-color: rgba(0, 0, 0, 0.484);">
+        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800" style="color: white;">Bus Pass Application Form</h2>
+        
+        <div class="space-y-4" id="applicationForm">
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Name:</label>
+                <p id="name" class="text-gray-900 font-semibold" style="color: white;"></p>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">College Name:</label>
+                <p id="collegeName" class="text-gray-900 font-semibold" style="color: white;"></p>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Starting Place:</label>
+                <p id="startPlace" class="text-gray-900 font-semibold" style="color: white;"></p>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Ending Place:</label>
+                <p id="endPlace" class="text-gray-900 font-semibold" style="color: white;"></p>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Distance (in km):</label>
+                <p id="distance" class="text-gray-900 font-semibold" style="color: white;"></p>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Renewal Amount:</label>
+                <p id="renewalAmount" class="text-gray-900 font-semibold" style="color: white;"></p>
+            </div>
+        </div>
+
+        <div class="mt-6 flex justify-between">
+            <button id="downloadPdf" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
+                Download as PDF
+            </button>
+            <button id="backToDashboard" class="bg-gray-400 text-white py-2 px-4 rounded-md hover:bg-gray-500">
+                Back to Dashboard
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Retrieve details from localStorage
+            const userData = JSON.parse(localStorage.getItem('busPassData'));
+    
+            if (userData) {
+                document.getElementById('name').textContent = userData.name || "N/A";
+                document.getElementById('collegeName').textContent = userData.collegeName || "N/A";
+                document.getElementById('startPlace').textContent = userData.startPlace || "N/A";
+                document.getElementById('endPlace').textContent = userData.endPlace || "N/A";
+                document.getElementById('distance').textContent = userData.distance ? `${userData.distance} km` : "N/A";
+                document.getElementById('renewalAmount').textContent = userData.charge ? `₹${userData.charge}` : "N/A";
+            } else {
+                console.error("No bus pass data found in localStorage.");
+            }
+    
+            // PDF Download Function
+            document.getElementById('downloadPdf').addEventListener('click', () => {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+    
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(18);
+                doc.text('Bus Pass Application Form', 20, 20);
+    
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(12);
+                doc.text(`Name: ${userData.name}`, 20, 40);
+                doc.text(`College Name: ${userData.collegeName}`, 20, 50);
+                doc.text(`Starting Place: ${userData.startPlace}`, 20, 60);
+                doc.text(`Ending Place: ${userData.endPlace}`, 20, 70);
+                doc.text(`Distance: ${userData.distance} km`, 20, 80);
+                doc.text(`Renewal Amount: ₹${userData.charge}`, 20, 90);
+    
+                doc.save(`Buspass_id_${userData.name}.pdf`);
+            });
+    
+            // Navigate back to Dashboard
+            document.getElementById('backToDashboard').addEventListener('click', () => {
+                window.location.href = 'dashboard.html';
+            });
+        });
+    </script>
+    
+</body>
+</html>
