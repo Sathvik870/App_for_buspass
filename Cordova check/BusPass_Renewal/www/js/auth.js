@@ -1,4 +1,27 @@
+document.addEventListener("deviceready", function () {
+    var permissions = cordova.plugins.permissions;
+    var storagePermission = permissions.WRITE_EXTERNAL_STORAGE;
+
+    permissions.checkPermission(storagePermission, function (status) {
+        if (!status.hasPermission) {
+            permissions.requestPermission(storagePermission, function (status) {
+                if (status.hasPermission) {
+                    console.log("Storage permission granted!");
+                } else {
+                    alert("Storage permission is required to save PDFs.");
+                }
+            }, function () {
+                console.error("Storage permission request failed");
+            });
+        } else {
+            console.log("Storage permission already granted.");
+        }
+    });
+});
+
 document.addEventListener("DOMContentLoaded", () => {
+
+    
     const signupForm = document.getElementById("signupForm");
     const loginForm = document.getElementById("loginForm");
 

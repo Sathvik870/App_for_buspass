@@ -96,11 +96,14 @@
                 <div class="button-container">
                     <a href="./apply.html" class="button">Apply for Bus Pass</a>
                     <a href="./renewal.html" class="button">Renewal</a>
+                    <a href="./index.html" class="button" onclick="alertsystem()">logout</a>
                 </div>
-                
             </div>
         </div>
     </nav>
+    <br/>
+    <p style="text-align: center; color: red;background-color:blanchedalmond">Note: Renew the Bus pass Before 16th of the  Respective month</p>
+
 
     <div class="container mx-auto mt-8 p-4">
         <div class="grid grid-cols-2 gap-8">
@@ -109,7 +112,7 @@
                 <h2 class="text-xl font-bold mb-4">Steps to Apply for Bus Pass</h2>
                 <div class="space-y-4">
                     <div class="border-l-4 border-blue-500 pl-4">
-                        <h3 class="font-bold">Required Documents</h3>
+                        <h3 class="font-bold">Required Documents for details</h3>
                         <ul class="list-disc ml-4 mt-2">
                             <li>Valid College ID Card</li>
                             <li>Proof of Address (Aadhaar/Ration Card)</li>
@@ -137,9 +140,9 @@
                     <div class="border-l-4 border-green-500 pl-4">
                         <h3 class="font-bold">Renewal Process</h3>
                         <ol class="list-decimal ml-4 mt-2">
-                            <li>Enter existing bus pass number</li>
+                            <li>Enter existing Student roll number</li>
+                            <li>Enter existing Student DOB/li>
                             <li>Verify current details</li>
-                            <li>Update if any changes required</li>
                             <li>Make renewal payment</li>
                             <li>Download renewed bus pass</li>
                         </ol>
@@ -147,7 +150,6 @@
                     <div class="border-l-4 border-green-500 pl-4" >
                         <h3 class="font-bold">Important Notes</h3>
                         <ul class="list-disc ml-4 mt-2">
-                            <li>Renew 7 days before expiry</li>
                             <li>Verify all details are up to date</li>
                             <li>Keep previous pass for reference</li>
                         </ul>
@@ -160,5 +162,10 @@
         <br/>
         <iframe src="./location.html" id = "map"></iframe>
     </div>
+    <script>
+        function alertsystem(){
+            alert("You have been logged out");
+        }
+    </script>
 </body>
 </html>

@@ -76,7 +76,7 @@ button {
 <body class=" flex items-center justify-center min-h-screen container">
     <div class="bg-white p-8 rounded-lg shadow-md max-w-3xl w-full" style="background-color: rgba(0, 0, 0, 0.484);">
         <h2 class="text-2xl font-bold mb-6 text-center text-gray-800" style="color: white;">Bus Pass with Validity</h2>
-        
+        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800" style="color: red;">Note : Take a screen shot Print it</h2>
         <div class="space-y-4" id="validityForm">
             <div>
                 <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Name:</label>
@@ -105,6 +105,18 @@ button {
             <div>
                 <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Validity:</label>
                 <p id="validity" class="text-green-600 font-semibold"></p>
+            </div>
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" style="color: rgb(255, 0, 0);">Take a acreen shot this Seperately</label>
+                <p id="imgshower" class="text-green-600 font-semibold">
+                    <img src="./img/bpdate1.jpeg" alt="Bus Pass Date" style="width: 100%; height: 100%;">
+                </p>
+            </div>
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" style="color: rgb(255, 0, 0);">Take a acreen shot this Seperately</label>
+                <p id="imgshower2" class="text-green-600 font-semibold">
+                    <img src="./img/bpdate2.jpeg" alt="Bus Pass Date" style="width: 100%; height: 100%;">
+                </p>
             </div>
         </div>
         <div class="mt-6 flex justify-between">
@@ -137,6 +149,8 @@ button {
                 const endingDate = `15/${nextMonth}/${currentYear}`;
 
                 document.getElementById('validity').textContent = `${startingDate} to ${endingDate}`;
+                /*document.getElementById('imgshower').textContent = `Date pass For ${currentMonth}` ;
+                document.getElementById('imgshower2').textContent = `Date pass For ${nextMonth}` ;*/
             }
 
             

@@ -76,8 +76,9 @@ button {
 <body class=" flex items-center justify-center min-h-screen container">
     <div class="bg-white p-8 rounded-lg shadow-md max-w-2xl w-full" style="background-color: rgba(0, 0, 0, 0.484);">
         <h2 class="text-2xl font-bold mb-6 text-center text-gray-800" style="color: white;">Bus Pass Application Form</h2>
-        
+        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800" style="color: red;">Note : Take a screen shot Print it</h2>
         <div class="space-y-4" id="applicationForm">
+
             <div>
                 <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Name:</label>
                 <p id="name" class="text-gray-900 font-semibold" style="color: white;"></p>
@@ -118,12 +119,11 @@ button {
             </button>
         </div>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Retrieve details from localStorage
             const userData = JSON.parse(localStorage.getItem('busPassData'));
-    
+            
             if (userData) {
                 document.getElementById('name').textContent = userData.name || "N/A";
                 document.getElementById('collegeName').textContent = userData.collegeName || "N/A";
@@ -134,9 +134,22 @@ button {
             } else {
                 console.error("No bus pass data found in localStorage.");
             }
-    
+                    //Retrieve details from localStorage
+            const storedData = localStorage.getItem('busPassData');
+            const userData1 = storedData ? JSON.parse(storedData) : {}; // Ensure it doesn't throw an error
+
+            if (Object.keys(userData1).length !== 0) {
+                document.getElementById('name').textContent = userData.name || "N/A";
+                document.getElementById('collegeName').textContent = userData.collegeName || "N/A";
+                document.getElementById('startPlace').textContent = userData.startPlace || "N/A";
+                document.getElementById('endPlace').textContent = userData.endPlace || "N/A";
+                document.getElementById('distance').textContent = userData.distance ? `${userData.distance} km` : "N/A";
+                document.getElementById('renewalAmount').textContent = userData.charge ? `₹${userData.charge}` : "N/A";
+            } else {
+                console.error("No bus pass data found in localStorage.");
+            }
             // PDF Download Function
-            document.getElementById('downloadPdf').addEventListener('click', () => {
+            document.getElementById('downloadPdf').addEventListener('click', () => {       
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
     
@@ -155,13 +168,12 @@ button {
     
                 doc.save(`Buspass_id_${userData.name}.pdf`);
             });
-    
             // Navigate back to Dashboard
             document.getElementById('backToDashboard').addEventListener('click', () => {
                 window.location.href = 'dashboard.html';
             });
         });
-    </script>
+    </script> 
     
 </body>
 </html>

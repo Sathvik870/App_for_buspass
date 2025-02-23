@@ -147,12 +147,6 @@ button {
                 </div>
 
                 <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Current Pass Expiry Date</label>
-                    <input type="text" id="expiryDate" readonly
-                        class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md">
-                </div>
-
-                <div>
                     <label class="block text-gray-700 text-sm font-bold mb-2" style="color: white;">Renewal Amount</label>
                     <input type="text" id="renewalAmount" readonly
                         class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md">
@@ -196,7 +190,6 @@ button {
                     document.getElementById("endPlace").value = data.endPlace;
                     document.getElementById("studyingYear").value = data.studyingYear;
                     document.getElementById("department").value = data.department;
-                    document.getElementById("expiryDate").value = data.expiryDate;
                     document.getElementById("renewalAmount").value = data.renewalAmount;
                     document.getElementById("detailsForm").classList.remove("hidden");
                     document.getElementById("proceedToPayment").disabled = false;
