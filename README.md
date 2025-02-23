@@ -1,5 +1,7 @@
-****Bus Pass Application System**
-Overview**
+**Bus Pass Application System**
+
+**Overview**
+
   The Bus Pass Application System is a web-based platform that allows users to apply for a bus pass, enter their details, and generate a downloadable PDF. The system consists of a user-friendly interface built with HTML, CSS (Tailwind), and JavaScript. The backend is powered by Node.js and Express, where a REST API handles the generation of PDFs.
 
 **Features**
@@ -11,6 +13,7 @@ Overview**
 
 **Installation & Setup**
   **1. Backend Setup**
+  
         * Install node.js for backend
         * cd backend
         * Also Add .env file in backend and use these variables : 
@@ -21,11 +24,13 @@ Overview**
         * The backend will start on http://localhost:5000.
         
   **2. Frontend Setup**
+  
         * Open terminal at frontend folder
         * Run "start index.html"
         * This will completely run your project
 
   **3. App setup :**
+  
         * Install this app-debug.apk  in this below file structure for to use it in your Android smart phone.
         * Folder structure : Cordova check\BusPass_Renewal\platforms\android\app\build\outputs\apk\debug\app-debug.apk
 
